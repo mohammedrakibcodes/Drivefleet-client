@@ -15,10 +15,6 @@ const Footer = () => {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-500/20">
-                <span className="text-xl font-black text-white">D</span>
-              </div>
-
               <div>
                 <h2 className="text-2xl font-black tracking-tight text-blue-600 dark:text-blue-500">
                   DriveFleet

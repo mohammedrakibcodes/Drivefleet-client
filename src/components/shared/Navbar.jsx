@@ -46,14 +46,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200/60 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/80">
+    <header className="sticky top-0 z-50 border-b border-gray-200/60 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/80 ">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
         <Link href="/" className="group">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-500/20">
-              <span className="text-xl font-black text-white">D</span>
-            </div>
-
             <div className="flex flex-col leading-none">
               <h1 className="text-2xl font-black tracking-tight text-blue-600 dark:text-blue-500">
                 DriveFleet
@@ -110,8 +106,14 @@ export default function Navbar() {
           </ul>
         </LayoutGroup>
 
+        {/* <div className="flex items-center gap-3">
+          <ThemeToggle /> */}
+
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          <div className="hidden md:block lg:block">
+            <ThemeToggle />
+          </div>
+
           {user ? (
             <>
               <Link

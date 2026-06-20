@@ -4,6 +4,7 @@ import "./globals.css";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,8 +21,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProvider>
           <Navbar />
-          <main className="pt-24">{children}</main>
+          <main>{children}</main>
+
           <Footer />
+
+          <Toaster position="top-right" richColors closeButton />
         </ThemeProvider>
       </body>
     </html>
