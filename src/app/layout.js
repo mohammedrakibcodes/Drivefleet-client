@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AuthProvider from "@/context/AuthProvider";
 
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/shared/Navbar";
@@ -20,12 +21,14 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
+          <AuthProvider>
+            <main>{children}</main>
+
+            <Footer />
+
+            <Toaster position="top-right" richColors closeButton />
+          </AuthProvider>
           <Navbar />
-          <main>{children}</main>
-
-          <Footer />
-
-          <Toaster position="top-right" richColors closeButton />
         </ThemeProvider>
       </body>
     </html>
