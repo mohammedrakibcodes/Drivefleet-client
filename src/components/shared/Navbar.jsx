@@ -18,7 +18,7 @@ const navLinks = [
   },
   {
     name: "Explore Cars",
-    href: "/explore-cars",
+    href: "/cars",
   },
   {
     name: "Add Car",

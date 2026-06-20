@@ -17,7 +17,7 @@ const slides = [
   },
   {
     id: 2,
-    image: "/Images/Hero/Hero2.jpg",
+    image: "/Images/Hero/Herov2.jpg",
     badge: "Luxury Collection",
     title: "Find The Perfect Ride For Every Destination",
     description:
@@ -25,7 +25,7 @@ const slides = [
   },
   {
     id: 3,
-    image: "/Images/Hero/Hero3.jpg",
+    image: "/Images/Hero/Herov3.jpg",
     badge: "Fast Booking",
     title: "Book In Minutes. Drive Without Limits.",
     description:
