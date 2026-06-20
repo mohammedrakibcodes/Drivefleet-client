@@ -33,7 +33,13 @@ const ExploreCarCard = ({ car }) => {
             {car.carName}
           </h2>
 
-          <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              car.availability === "Available"
+                ? "bg-green-500/90 text-white"
+                : "bg-red-500/90 text-white"
+            }`}
+          >
             {car.availability}
           </span>
         </div>

@@ -27,8 +27,8 @@ const ExploreCars = () => {
 
         const data = await res.json();
         setCars(data.data || []);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.log(err);
       } finally {
         setLoading(false);
       }
@@ -42,7 +42,6 @@ const ExploreCars = () => {
 
     if (search.trim()) {
       const keyword = search.toLowerCase();
-
       result = result.filter(
         (car) =>
           car.carName.toLowerCase().includes(keyword) ||
@@ -76,7 +75,7 @@ const ExploreCars = () => {
     <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.5 }}
       className="min-h-screen bg-slate-50 py-20 dark:bg-slate-950"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -90,7 +89,7 @@ const ExploreCars = () => {
             Explore Cars
           </h1>
           <p className="mt-3 text-slate-600 dark:text-slate-400">
-            Find the perfect vehicle for your next adventure.
+            Find your perfect ride with smooth experience.
           </p>
         </motion.div>
 
@@ -127,11 +126,7 @@ const ExploreCars = () => {
           </motion.h2>
         )}
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
+        <motion.div layout className="min-h-[300px]">
           {loading ? (
             <LoadingSkeleton />
           ) : filteredCars.length === 0 ? (
