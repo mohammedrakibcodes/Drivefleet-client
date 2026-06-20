@@ -66,7 +66,7 @@ const AvailableCars = () => {
             href="/explore-cars"
             className="inline-flex rounded-full border border-blue-600 bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
           >
-            View All Cars
+            Explore All Cars
           </Link>
         </div>
       </div>
