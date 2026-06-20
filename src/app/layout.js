@@ -22,13 +22,13 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProvider>
           <AuthProvider>
+            <Navbar />
             <main>{children}</main>
 
             <Footer />
 
             <Toaster position="top-right" richColors closeButton />
           </AuthProvider>
-          <Navbar />
         </ThemeProvider>
       </body>
     </html>
