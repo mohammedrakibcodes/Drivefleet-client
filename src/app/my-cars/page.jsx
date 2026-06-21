@@ -1,7 +1,11 @@
-import React from "react";
+import MyCars from "@/components/my-cars/MyCars";
 
-const page = () => {
-  return <div>page</div>;
+export const metadata = {
+  title: "My Added Cars | DriveFleet",
 };
 
-export default page;
+const MyCarsPage = () => {
+  return <MyCars />;
+};
+
+export default MyCarsPage;

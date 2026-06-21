@@ -94,10 +94,7 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <Link
-                href="/profile"
-                className="transition-transform hover:scale-105"
-              >
+              <Link href="/" className="transition-transform hover:scale-105">
                 {user?.photoURL ? (
                   <Image
                     src={user.photoURL}

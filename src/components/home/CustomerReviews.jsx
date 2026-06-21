@@ -58,7 +58,7 @@ const CustomerReviews = () => {
             Testimonials
           </span>
 
-          <h2 className="mt-5 text-4xl font-black text-slate-900 dark:text-white">
+          <h2 className="mt-5 text-4xl font-bold text-slate-900 dark:text-white">
             What Our Customers Say
           </h2>
 

@@ -12,6 +12,7 @@ import {
   TextField,
   Select,
   ListBox,
+  FieldError,
 } from "@heroui/react";
 import { toast } from "sonner";
 import { AuthContext } from "@/context/AuthProvider";
@@ -75,6 +76,11 @@ const BookingModal = ({ open, onClose, car }) => {
 
   const handleBooking = async () => {
     if (!validateDates()) return;
+
+    if (!driverNeeded) {
+      toast.error("Please select Driver Needed option");
+      return;
+    }
 
     if (!user) {
       router.push("/login");
@@ -218,7 +224,6 @@ const BookingModal = ({ open, onClose, car }) => {
                           </Select.Popover>
                         </Select>
                       </div>
-
                       <div />
 
                       <TextField>
@@ -229,6 +234,7 @@ const BookingModal = ({ open, onClose, car }) => {
                           value={bookingDate}
                           onChange={(e) => setBookingDate(e.target.value)}
                         />
+                        <FieldError />
                       </TextField>
 
                       <TextField>

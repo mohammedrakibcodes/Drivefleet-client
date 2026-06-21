@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 
 import BookingCard from "./BookingCard";
 import EmptyState from "./EmptyState";
-import LoadingSkeleton from "./LoadingSkeleton";
+import { Spinner } from "@heroui/react";
+import { motion } from "framer-motion";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -36,7 +37,15 @@ const MyBookings = () => {
     fetchBookings();
   }, []);
 
-  if (loading) return <LoadingSkeleton />;
+  if (loading) {
+    return (
+      <section className="min-h-screen bg-slate-50 py-20 dark:bg-slate-950">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <Spinner />
+        </div>
+      </section>
+    );
+  }
 
   if (bookings.length === 0) return <EmptyState />;
 
@@ -53,7 +62,12 @@ const MyBookings = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-col gap-6"
+        >
           {bookings.map((booking) => (
             <BookingCard
               key={booking._id}
@@ -61,7 +75,7 @@ const MyBookings = () => {
               refresh={fetchBookings}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

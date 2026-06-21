@@ -34,7 +34,7 @@ const HowItWorks = () => {
             How It Works
           </span>
 
-          <h2 className="mt-5 text-4xl font-black text-slate-900 dark:text-white">
+          <h2 className="mt-5 text-4xl font-bold text-slate-900 dark:text-white">
             Rent Your Car in 3 Easy Steps
           </h2>
 

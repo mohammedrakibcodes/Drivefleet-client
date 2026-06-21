@@ -40,7 +40,7 @@ const WhyChoose = () => {
             Why Choose Us
           </span>
 
-          <h2 className="mt-5 text-4xl font-black text-slate-900 dark:text-white">
+          <h2 className="mt-5 text-4xl font-bold text-slate-900 dark:text-white">
             Why Choose DriveFleet
           </h2>
 

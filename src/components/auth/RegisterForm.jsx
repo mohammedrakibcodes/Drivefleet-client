@@ -115,7 +115,7 @@ const RegisterForm = () => {
             transition={{ delay: 0.2 }}
             className="mb-8 text-center"
           >
-            <h2 className=" text-3xl font-black text-slate-900 dark:text-white">
+            <h2 className=" text-3xl font-bold text-slate-900 dark:text-white">
               Create Account
             </h2>
 
