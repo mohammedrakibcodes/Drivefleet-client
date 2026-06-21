@@ -83,7 +83,7 @@ const CarCard = ({ car }) => {
             className="flex items-center gap-2 rounded-xl"
           >
             <Eye size={18} />
-            Details
+            View Details
           </Button>
         </Link>
       </div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { Users, MapPin, Eye } from "lucide-react";
+import { Users, MapPin, Eye, BadgeCheck } from "lucide-react";
 import { Button } from "@heroui/react";
 
 const ExploreCarCard = ({ car }) => {
@@ -70,8 +70,8 @@ const ExploreCarCard = ({ car }) => {
               variant="outline"
               className="flex items-center gap-2 rounded-xl"
             >
-              <Eye size={18} />
-              Details
+              Book
+              <BadgeCheck size={18} />
             </Button>
           </Link>
         </div>

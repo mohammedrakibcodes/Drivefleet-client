@@ -1,14 +1,13 @@
 "use client";
 
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button, Modal } from "@heroui/react";
-import { useContext } from "react";
 import { AuthContext } from "@/context/AuthProvider";
 
 import ThemeToggle from "./ThemeToggle";
@@ -37,9 +36,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await logoutUser();
-
       toast.success("Logged out successfully");
-
       router.push("/");
     } catch (error) {
       toast.error(error.message);
@@ -97,14 +94,23 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <Link href="/profile">
-                <Image
-                  src={user.photoURL}
-                  alt="user"
-                  width={42}
-                  height={42}
-                  className="h-10 w-10 rounded-full border-2 border-blue-500 object-cover"
-                />
+              <Link
+                href="/profile"
+                className="transition-transform hover:scale-105"
+              >
+                {user?.photoURL ? (
+                  <Image
+                    src={user.photoURL}
+                    alt={user?.displayName || "user"}
+                    width={42}
+                    height={42}
+                    className="h-11 w-11 rounded-full border-2 border-blue-500 object-cover"
+                  />
+                ) : (
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
+                    {user?.displayName?.charAt(0)?.toUpperCase()}
+                  </div>
+                )}
               </Link>
 
               <Modal>
