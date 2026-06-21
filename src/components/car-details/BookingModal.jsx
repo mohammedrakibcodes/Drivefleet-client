@@ -3,7 +3,16 @@
 import { useState, useMemo, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import {
+  Button,
+  Input,
+  Label,
+  Modal,
+  Surface,
+  TextField,
+  Select,
+  ListBox,
+} from "@heroui/react";
 import { toast } from "sonner";
 import { AuthContext } from "@/context/AuthProvider";
 
@@ -13,6 +22,7 @@ const BookingModal = ({ open, onClose, car }) => {
 
   const [bookingDate, setBookingDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const [driverNeeded, setDriverNeeded] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,18 +47,18 @@ const BookingModal = ({ open, onClose, car }) => {
     if (diff <= 0) return 0;
 
     const price = Number(car?.dailyRentPrice || 0);
+
     return diff * price;
   }, [bookingDate, returnDate, car]);
 
   const resetForm = () => {
     setBookingDate("");
     setReturnDate("");
+    setDriverNeeded("");
     setError("");
   };
 
   const validateDates = () => {
-    const today = new Date().toISOString().split("T")[0];
-
     if (!bookingDate || !returnDate) {
       setError("Please select both booking and return dates");
       return false;
@@ -78,6 +88,7 @@ const BookingModal = ({ open, onClose, car }) => {
         carId: car._id,
         bookingDate,
         returnDate,
+        driverNeeded,
       };
 
       const res = await fetch(
@@ -85,7 +96,9 @@ const BookingModal = ({ open, onClose, car }) => {
         {
           method: "POST",
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(bookingData),
         },
       );
@@ -98,6 +111,7 @@ const BookingModal = ({ open, onClose, car }) => {
 
       resetForm();
       onClose();
+
       router.push("/my-bookings");
     } catch (err) {
       toast.error(err.message);
@@ -111,43 +125,40 @@ const BookingModal = ({ open, onClose, car }) => {
   return (
     <Modal isOpen={open} onOpenChange={onClose}>
       <Modal.Backdrop>
-        <div className="fixed flex items-center justify-center p-2 sm:p-5">
+        <div className="fixed inset-0 flex items-center justify-center p-3">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{
               opacity: open ? 1 : 0,
-              scale: open ? 1 : 0.95,
+              scale: open ? 1 : 0.96,
             }}
             transition={{ duration: 0.2 }}
             className="w-full flex items-center justify-center"
           >
             <Modal.Container placement="auto">
-              <Modal.Dialog className="w-[96vw] sm:w-full max-w-sm sm:max-w-xl max-h-[88dvh] bg-white dark:bg-slate-900 rounded-xl flex flex-col overflow-hidden">
-                {/* Close Button FIXED */}
+              <Modal.Dialog className="w-[96vw] sm:w-full max-w-4xl max-h-[85dvh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
                 <Modal.CloseTrigger
                   onPress={() => {
                     resetForm();
                     onClose();
                   }}
-                  className="absolute right-2 top-2 flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-green-500 text-white hover:bg-green-600 transition"
+                  className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white hover:bg-green-600 transition"
                 />
 
-                <Modal.Header className="px-3 sm:px-6 pt-3 shrink-0">
-                  <Modal.Heading className="text-base font-semibold sm:text-2xl">
+                <Modal.Header className="px-6 pt-5 pb-2 shrink-0">
+                  <Modal.Heading className="text-xl sm:text-2xl font-bold">
                     Book Car
                   </Modal.Heading>
                 </Modal.Header>
 
-                <Modal.Body className="p-3 sm:p-6 overflow-y-auto flex-1">
-                  <Surface>
-                    <div className="flex flex-col gap-3 sm:gap-5">
-                      {/* ✅ NAME FIELD */}
+                <Modal.Body className="px-6 pb-4 overflow-y-auto">
+                  <Surface className="bg-transparent shadow-none">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <TextField>
                         <Label>Name</Label>
                         <Input readOnly value={user?.displayName || ""} />
                       </TextField>
 
-                      {/* ✅ EMAIL FIELD */}
                       <TextField>
                         <Label>Email</Label>
                         <Input readOnly value={user?.email || ""} />
@@ -166,41 +177,92 @@ const BookingModal = ({ open, onClose, car }) => {
                         />
                       </TextField>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <TextField>
-                          <Label>Booking Date</Label>
-                          <Input
-                            type="date"
-                            min={today}
-                            value={bookingDate}
-                            onChange={(e) => setBookingDate(e.target.value)}
-                          />
-                        </TextField>
+                      <div className="w-full">
+                        <Select
+                          selectedKeys={driverNeeded ? [driverNeeded] : []}
+                          onSelectionChange={(keys) =>
+                            setDriverNeeded(Array.from(keys)[0])
+                          }
+                          placeholder="Select option"
+                          fullWidth
+                        >
+                          <Label className="text-black dark:text-white">
+                            Driver Needed
+                          </Label>
 
-                        <TextField>
-                          <Label>Return Date</Label>
-                          <Input
-                            type="date"
-                            min={bookingDate || today}
-                            value={returnDate}
-                            onChange={(e) => setReturnDate(e.target.value)}
-                          />
-                        </TextField>
+                          <Select.Trigger className="h-10 rounded-lg bg-white text-black border border-gray-300 dark:bg-black dark:text-white dark:border-gray-700">
+                            <Select.Value className="text-black dark:text-white" />
+                            <Select.Indicator className="text-black dark:text-white" />
+                          </Select.Trigger>
+
+                          <Select.Popover className="bg-white dark:bg-black border border-gray-300 dark:border-gray-700">
+                            <ListBox>
+                              <ListBox.Item
+                                id="yes"
+                                textValue="Yes"
+                                className="text-black dark:text-white"
+                              >
+                                Yes
+                                <ListBox.ItemIndicator />
+                              </ListBox.Item>
+
+                              <ListBox.Item
+                                id="no"
+                                textValue="No"
+                                className="text-black dark:text-white"
+                              >
+                                No
+                                <ListBox.ItemIndicator />
+                              </ListBox.Item>
+                            </ListBox>
+                          </Select.Popover>
+                        </Select>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <Label>Total Cost</Label>
-                        <span className="font-semibold">
-                          ${totalCost.toLocaleString()}
-                        </span>
-                      </div>
+                      <div />
 
-                      {error && <p className="text-xs text-red-500">{error}</p>}
+                      <TextField>
+                        <Label>Booking Date</Label>
+                        <Input
+                          type="date"
+                          min={today}
+                          value={bookingDate}
+                          onChange={(e) => setBookingDate(e.target.value)}
+                        />
+                      </TextField>
+
+                      <TextField>
+                        <Label>Return Date</Label>
+                        <Input
+                          type="date"
+                          min={bookingDate || today}
+                          value={returnDate}
+                          onChange={(e) => setReturnDate(e.target.value)}
+                        />
+                      </TextField>
+
+                      <TextField className="md:col-span-2">
+                        <Label className="text-black dark:text-white">
+                          Total Cost
+                        </Label>
+
+                        <Input
+                          readOnly
+                          value={`$${totalCost.toLocaleString()}`}
+                          className="bg-white text-black dark:bg-slate-900 dark:text-white"
+                        />
+                      </TextField>
+
+                      {error && (
+                        <p className="md:col-span-2 text-sm text-red-500">
+                          {error}
+                        </p>
+                      )}
                     </div>
                   </Surface>
                 </Modal.Body>
 
-                <Modal.Footer className="flex flex-col sm:flex-row gap-2 p-2 sm:p-6">
+                <Modal.Footer className="flex justify-end gap-3 px-6 py-4 border-t border-slate-200 dark:border-slate-800">
                   <Button
                     slot="close"
                     variant="danger"

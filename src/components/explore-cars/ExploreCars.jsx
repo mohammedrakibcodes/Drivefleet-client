@@ -26,7 +26,23 @@ const ExploreCars = () => {
         });
 
         const data = await res.json();
-        setCars(data.data || []);
+
+        const cleanData = (data.data || []).map((car) => {
+          const image = car.image;
+
+          const isValidImage =
+            typeof image === "string" &&
+            (image.startsWith("http://") ||
+              image.startsWith("https://") ||
+              image.startsWith("/"));
+
+          return {
+            ...car,
+            image: isValidImage ? image : null,
+          };
+        });
+
+        setCars(cleanData);
       } catch (err) {
         console.log(err);
       } finally {
@@ -44,9 +60,9 @@ const ExploreCars = () => {
       const keyword = search.toLowerCase();
       result = result.filter(
         (car) =>
-          car.carName.toLowerCase().includes(keyword) ||
-          car.carType.toLowerCase().includes(keyword) ||
-          car.pickupLocation.toLowerCase().includes(keyword),
+          (car.carName || "").toLowerCase().includes(keyword) ||
+          (car.carType || "").toLowerCase().includes(keyword) ||
+          (car.pickupLocation || "").toLowerCase().includes(keyword),
       );
     }
 

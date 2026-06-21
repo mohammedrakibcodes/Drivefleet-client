@@ -24,8 +24,6 @@ const MyBookings = () => {
 
       if (res.ok) {
         setBookings(data.data || []);
-      } else {
-        console.log(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -38,13 +36,9 @@ const MyBookings = () => {
     fetchBookings();
   }, []);
 
-  if (loading) {
-    return <LoadingSkeleton />;
-  }
+  if (loading) return <LoadingSkeleton />;
 
-  if (bookings.length === 0) {
-    return <EmptyState />;
-  }
+  if (bookings.length === 0) return <EmptyState />;
 
   return (
     <section className="min-h-screen bg-slate-50 py-20 dark:bg-slate-950">
@@ -59,7 +53,7 @@ const MyBookings = () => {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div className="flex flex-col gap-6">
           {bookings.map((booking) => (
             <BookingCard
               key={booking._id}

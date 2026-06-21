@@ -19,6 +19,12 @@ const CarCard = ({ car }) => {
     availability,
   } = car;
 
+  const isValidImage =
+    typeof image === "string" &&
+    (image.startsWith("http://") ||
+      image.startsWith("https://") ||
+      image.startsWith("/"));
+
   return (
     <motion.article
       whileHover={{ y: -8 }}
@@ -26,14 +32,20 @@ const CarCard = ({ car }) => {
       className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg transition-all duration-300 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900"
     >
       <div className="relative overflow-hidden">
-        <Image
-          src={image}
-          alt={carName}
-          className="h-64 w-full object-cover"
-          width={800}
-          height={500}
-          loading="eager"
-        />
+        {isValidImage ? (
+          <Image
+            src={image}
+            alt={carName || "Car image"}
+            className="h-64 w-full object-cover"
+            width={800}
+            height={500}
+            loading="eager"
+          />
+        ) : (
+          <div className="h-64 w-full flex items-center justify-center bg-slate-100 text-slate-500">
+            No Image Available
+          </div>
+        )}
 
         <span
           className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-xl ${
