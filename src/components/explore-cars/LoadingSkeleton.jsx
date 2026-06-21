@@ -3,11 +3,6 @@ import { Skeleton } from "@heroui/react";
 export default function LoadingSkeletonPage() {
   return (
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
-      {/* <div className="space-y-2">
-        <Skeleton animationType="pulse" className="h-6 w-1/3 rounded-lg" />
-        <Skeleton animationType="pulse" className="h-4 w-1/2 rounded-lg" />
-      </div> */}
-
       <div className="rounded-xl border p-4 space-y-4">
         <Skeleton animationType="pulse" className="h-40 w-full rounded-lg" />
 

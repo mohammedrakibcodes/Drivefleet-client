@@ -98,7 +98,7 @@ const Hero = () => {
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/explore-cars"
+                href="/cars"
                 className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3 font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-blue-600 hover:bg-blue-600 dark:bg-white/5"
               >
                 Explore Cars

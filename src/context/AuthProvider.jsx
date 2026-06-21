@@ -23,31 +23,37 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
     setLoading(true);
-
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const loginUser = (email, password) => {
     setLoading(true);
-
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const googleLogin = () => {
     setLoading(true);
-
     return signInWithPopup(auth, googleProvider);
   };
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
     setLoading(true);
 
-    return signOut(auth);
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+
+      await signOut(auth);
+    } finally {
+      setUser(null);
+      setLoading(false);
+    }
   };
 
   const updateUser = (name, photo) => {
@@ -56,9 +62,27 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     });
   };
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+
+      try {
+        if (currentUser?.email) {
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jwt`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: currentUser.email,
+            }),
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
 
       setLoading(false);
     });

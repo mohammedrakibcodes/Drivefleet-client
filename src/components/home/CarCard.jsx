@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { MapPin, Users, CarFront, BadgeDollarSign } from "lucide-react";
+import { MapPin, Users, CarFront, BadgeDollarSign, Eye } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@heroui/react";
 
 const CarCard = ({ car }) => {
   const {
@@ -76,11 +77,14 @@ const CarCard = ({ car }) => {
           </div>
         </div>
 
-        <Link
-          href={`/cars/${_id}`}
-          className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
-        >
-          View Details
+        <Link href={`/cars/${car._id}`}>
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 rounded-xl"
+          >
+            <Eye size={18} />
+            Details
+          </Button>
         </Link>
       </div>
     </motion.article>

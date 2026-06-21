@@ -60,20 +60,20 @@ const ExploreCarCard = ({ car }) => {
           <div>
             <p className="text-sm text-slate-500">Per Day</p>
 
-            <p className="text-xl font-bold text-black-500">
+            <p className="text-xl font-bold text-black dark:text-white">
               ${car.dailyRentPrice}
             </p>
           </div>
 
-          <Button
-            variant="outline"
-            as={Link}
-            href={`/cars/${car._id}`}
-            className="flex items-center gap-2 rounded-xl "
-          >
-            <Eye size={18} />
-            Details
-          </Button>
+          <Link href={`/cars/${car._id}`}>
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 rounded-xl"
+            >
+              <Eye size={18} />
+              Details
+            </Button>
+          </Link>
         </div>
       </div>
     </motion.div>
