@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { AuthContext } from "@/context/AuthProvider";
 
 const slides = [
   {
@@ -34,6 +35,8 @@ const slides = [
 ];
 
 const Hero = () => {
+  const { user } = useContext(AuthContext);
+
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -108,12 +111,14 @@ const Hero = () => {
                 />
               </Link>
 
-              <Link
-                href="/register"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 py-3 font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/15 dark:hover:bg-white/10"
-              >
-                Get Started
-              </Link>
+              {!user && (
+                <Link
+                  href="/register"
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 py-3 font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/15 dark:hover:bg-white/10"
+                >
+                  Get Started
+                </Link>
+              )}
             </div>
           </motion.div>
         </div>
