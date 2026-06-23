@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  FaFacebookF,
+  FaFacebook,
   FaInstagram,
   FaXTwitter,
   FaLocationDot,
@@ -34,21 +34,27 @@ const Footer = () => {
 
             <div className="mt-8 flex items-center gap-4">
               <Link
-                href="#"
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white transition duration-300 hover:-translate-y-1"
               >
-                <FaFacebookF />
+                <FaFacebook />
               </Link>
 
               <Link
-                href="#"
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white transition duration-300 hover:-translate-y-1"
               >
                 <FaInstagram />
               </Link>
 
               <Link
-                href="#"
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white transition duration-300 hover:-translate-y-1"
               >
                 <FaXTwitter />

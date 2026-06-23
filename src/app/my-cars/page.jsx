@@ -1,3 +1,4 @@
+import PrivateRoute from "@/components/shared/PrivateRoute";
 import MyCars from "@/components/my-cars/MyCars";
 
 export const metadata = {
@@ -5,7 +6,11 @@ export const metadata = {
 };
 
 const MyCarsPage = () => {
-  return <MyCars />;
+  return (
+    <PrivateRoute>
+      <MyCars />
+    </PrivateRoute>
+  );
 };
 
 export default MyCarsPage;

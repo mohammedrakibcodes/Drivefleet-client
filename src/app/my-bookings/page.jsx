@@ -1,3 +1,4 @@
+import PrivateRoute from "@/components/shared/PrivateRoute";
 import MyBookings from "@/components/my-bookings/MyBookings";
 
 export const metadata = {
@@ -5,7 +6,11 @@ export const metadata = {
 };
 
 const MyBookingsPage = () => {
-  return <MyBookings />;
+  return (
+    <PrivateRoute>
+      <MyBookings />
+    </PrivateRoute>
+  );
 };
 
 export default MyBookingsPage;

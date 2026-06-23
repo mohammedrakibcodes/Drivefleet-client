@@ -1,3 +1,4 @@
+import PrivateRoute from "@/components/shared/PrivateRoute";
 import AddCarForm from "@/components/add-car/AddCarForm";
 
 export const metadata = {
@@ -7,9 +8,11 @@ export const metadata = {
 
 const AddCarPage = () => {
   return (
-    <main>
-      <AddCarForm />
-    </main>
+    <PrivateRoute>
+      <main>
+        <AddCarForm />
+      </main>
+    </PrivateRoute>
   );
 };
 
